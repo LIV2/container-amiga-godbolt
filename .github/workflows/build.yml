@@ -4,6 +4,9 @@ on:
   push:
     tags:
       - "Build-**"
+    branches:
+      - master
+
   workflow_dispatch:
 
 jobs:
@@ -89,12 +92,10 @@ jobs:
           images: |
             ${{ vars.DOCKERHUB_REPO }}
           tags: |
-            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'master') }}
+            type=raw,value=latest
             type=sha
             type=ref,event=branch
-            type=ref,event=pr
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}            
+            type=ref,event=pr           
 
       - name: Create manifest list and push
         working-directory: ${{ runner.temp }}/digests
