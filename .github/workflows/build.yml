@@ -4,13 +4,11 @@ on:
   push:
     tags:
       - "Build-**"
-    branches:
-      - master
-
   workflow_dispatch:
 
 jobs:
   build:
+    if: github.event.base_ref == 'refs/heads/master'
     strategy:
       fail-fast: false
       matrix:
