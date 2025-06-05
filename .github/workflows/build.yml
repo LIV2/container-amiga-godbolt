@@ -89,7 +89,7 @@ jobs:
           images: |
             ${{ vars.DOCKERHUB_REPO }}
           tags: |
-            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
+            type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'master') }}
             type=sha
             type=ref,event=branch
             type=ref,event=pr
