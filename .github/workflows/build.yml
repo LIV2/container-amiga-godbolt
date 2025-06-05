@@ -101,6 +101,15 @@ jobs:
           docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
             $(printf '${{ vars.DOCKERHUB_REPO }}@sha256:%s ' *)       
 
+      - name: Update Docker Hub Description
+        uses: peter-evans/dockerhub-description@v4
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          repository: ${{ vars.DOCKERHUB_REPO }}
+          readme-filepath: ./README.md
+          short-description: "Godbolt Compiler Explorer with amiga-gcc"
+
       - name: Inspect image
         run: |
           docker buildx imagetools inspect ${{ vars.DOCKERHUB_REPO }}:${{ steps.meta.outputs.version }}
