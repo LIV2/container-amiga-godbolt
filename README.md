@@ -1,10 +1,10 @@
 # Amiga-Godbolt Docker Container
 
-This repository provides a Docker container for running the Godbolt Compiler Explorer configured with `amiga-gcc`, enabling compilation and exploration of Amiga-specific C/C++ code in a web-based interface.
+This repository provides a Docker container for running the Godbolt Compiler Explorer configured with `amiga-gcc` (GCC 6.5 and GCC 13.2), enabling compilation and exploration of Amiga-specific C/C++ code in a web-based interface.
 
 ## Overview
 
-The container is pre-configured with the Godbolt Compiler Explorer and the `amiga-gcc` toolchain, allowing developers to write, compile, and analyze Amiga code directly from a browser. The web interface is accessible via an exposed port (default: 10240).
+The container is pre-configured with the Godbolt Compiler Explorer and the `amiga-gcc` toolchain (GCC 6.5 and GCC 13.2), allowing developers to write, compile, and analyze Amiga code directly from a browser. The web interface is accessible via an exposed port (default: 10240).
 
 ## Getting Started
 
