@@ -56,9 +56,9 @@ RUN apt-get update && apt-get install -y \
     curl \
     git \
     rsync \
-    gcc \
-    xz-utils \
-    && rm -rf /var/lib/apt/lists/*
+    xz-utils && \
+    apt-get -y autoremove && \
+    rm -rf /var/lib/apt/lists/*
 
 # Download and extract Node.js binary tarball
 ADD scripts/node_install.sh /node_install.sh
@@ -74,6 +74,9 @@ ADD configs/* /compiler-explorer/etc/config/
 
 WORKDIR /compiler-explorer
 
-RUN make prebuild
+RUN make prebuild && \
+    rm -rf ~/.npm && \
+    rm -rf ~/.cache && \
+    rm -rf /compiler-explorer/node_modules/.cache
 
 CMD [ "make" ]
