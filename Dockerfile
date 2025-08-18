@@ -4,7 +4,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Install all prereqs
 RUN apt-get -y update && \
     apt-get -y install \
-      apt-utils curl git jlha-utils lhasa python3 python3-pip srecord wget \
+      apt-utils curl git jlha-utils lhasa python3 python3-pip wget \
       autoconf bison flex g++ gcc gettext git libgmpxx4ldbl libgmp-dev \
       libmpfr6 libmpfr-dev libmpc3 libmpc-dev libncurses-dev make rsync \
       texinfo
@@ -56,7 +56,10 @@ RUN apt-get update && apt-get install -y \
     curl \
     git \
     rsync \
-    xz-utils && \
+    xz-utils \
+    libmpc3 \
+    libgmpxx4ldbl \
+    libmpfr6 && \
     apt-get -y autoremove && \
     rm -rf /var/lib/apt/lists/*
 
@@ -80,3 +83,4 @@ RUN make prebuild && \
     rm -rf /compiler-explorer/node_modules/.cache
 
 CMD [ "make" ]
+
