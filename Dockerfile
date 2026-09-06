@@ -27,15 +27,30 @@ RUN git config --global pull.rebase false && \
     rm -rf /root/amiga-gcc
 
 FROM build-base AS build-gcc13
-# Install Bebbo's amiga-gcc 13.2
-ENV PREFIX=/opt/amiga-gcc-13.2
+# Install Bebbo's amiga-gcc 13.4
+ENV PREFIX=/opt/amiga-gcc-13.4
 
 RUN git config --global pull.rebase false && \
     cd /root && \
     git clone --depth 1 https://github.com/AmigaPorts/m68k-amigaos-gcc amiga-gcc && \
     cd /root/amiga-gcc && \
     mkdir -p ${PREFIX} && \
-    make branch branch=amiga13.2 mod=gcc && \
+    make branch branch=amiga13.4 mod=gcc && \
+    make update && \
+    make -j2 min ndk && \
+    cd / && \
+    rm -rf /root/amiga-gcc
+
+FROM build-base AS build-gcc16
+# Install Bebbo's amiga-gcc 13.4
+ENV PREFIX=/opt/amiga-gcc-16.2
+
+RUN git config --global pull.rebase false && \
+    cd /root && \
+    git clone --depth 1 https://github.com/AmigaPorts/m68k-amigaos-gcc amiga-gcc && \
+    cd /root/amiga-gcc && \
+    mkdir -p ${PREFIX} && \
+    make branch branch=amiga16.2 mod=gcc && \
     make update && \
     make -j2 min ndk && \
     cd / && \
@@ -49,7 +64,8 @@ ARG NODE_VERSION=v22.16.0
 ENV DEBIAN_FRONTEND=noninteractive
 
 COPY --from=build-gcc6 /opt/amiga-gcc-6.5.0 /opt/amiga-gcc-6.5.0
-COPY --from=build-gcc13 /opt/amiga-gcc-13.2 /opt/amiga-gcc-13.2
+COPY --from=build-gcc13 /opt/amiga-gcc-13.4 /opt/amiga-gcc-13.4
+COPY --from=build-gcc16 /opt/amiga-gcc-16.2 /opt/amiga-gcc-16.2
 
 RUN apt-get update && apt-get install -y \
     make \
