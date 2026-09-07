@@ -22,7 +22,7 @@ RUN git config --global pull.rebase false && \
     cd /root/amiga-gcc && \
     mkdir -p ${PREFIX} && \
     make update && \
-    make -j2 min ndk && \
+    make -j4 min ndk && \
     cd / && \
     rm -rf /root/amiga-gcc
 
@@ -37,7 +37,7 @@ RUN git config --global pull.rebase false && \
     mkdir -p ${PREFIX} && \
     make branch branch=amiga13.4 mod=gcc && \
     make update && \
-    make -j2 min ndk && \
+    make -j4 min ndk && \
     cd / && \
     rm -rf /root/amiga-gcc
 
@@ -52,7 +52,7 @@ RUN git config --global pull.rebase false && \
     mkdir -p ${PREFIX} && \
     make branch branch=amiga16.2 mod=gcc && \
     make update && \
-    make -j2 min ndk && \
+    make -j4 min ndk && \
     cd / && \
     rm -rf /root/amiga-gcc
 
@@ -60,7 +60,7 @@ FROM ubuntu:24.04
 
 EXPOSE 10240/tcp
 ENV EXTRA_ARGS="--language c --language c++"
-ARG NODE_VERSION=v22.16.0
+ARG NODE_VERSION=v22.23.1
 ENV DEBIAN_FRONTEND=noninteractive
 
 COPY --from=build-gcc6 /opt/amiga-gcc-6.5.0 /opt/amiga-gcc-6.5.0
