@@ -21,6 +21,7 @@ RUN git config --global pull.rebase false && \
     git clone --depth 1 https://github.com/AmigaPorts/m68k-amigaos-gcc amiga-gcc && \
     cd /root/amiga-gcc && \
     mkdir -p ${PREFIX} && \
+    make branch branch=amiga6 mod=gcc && \
     make update && \
     make -j4 min ndk && \
     cd / && \
